@@ -31,6 +31,7 @@ module.exports = {
         };
         console.log(msg)
         sgMail.send(msg);
+        console.log('after send')
         passport.authenticate("local")(req, res, () => {
           req.flash("notice", "You've successfully signed up!");
           res.redirect("/");
