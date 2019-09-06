@@ -19,3 +19,4 @@ module.exports = (sequelize, DataTypes) => {
   };
   return Users;
 };
+console.log('ok');
