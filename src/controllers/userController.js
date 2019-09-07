@@ -19,7 +19,6 @@ module.exports = {
         res.redirect("/users/signup");
 
       } else {
-        console.log('sign up code');
         const sgMail = require('@sendgrid/mail');
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
         const msg = {
@@ -29,14 +28,32 @@ module.exports = {
           text: 'Log in and start collaborating on wikis!',
           html: '<strong>Log in and start collaborating on wikis!</strong>',
         };
-        console.log(msg)
         sgMail.send(msg);
-        console.log('after send')
         passport.authenticate("local")(req, res, () => {
           req.flash("notice", "You've successfully signed up!");
           res.redirect("/");
         });
       }
     });
+  },
+  signInForm(req, res, next) {
+    res.render('users/signin');
+  },
+  signIn(req, res, next) {
+    passport.authenticate("local")(req, res, function () {
+      console.log(req.user)
+      if (!req.user) {
+        req.flash("notice", "Sign in failed. Please try again.");
+        res.redirect("/users/signin");
+      } else {
+        req.flash("notice", "You've successfully signed in!");
+        res.redirect("/");
+      }
+    });
+  },
+  signOut(req, res, next) {
+    req.logout();
+    req.flash("notice", "You've successfully signed out!");
+    res.redirect("/");
   },
 };
