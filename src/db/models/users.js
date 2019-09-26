@@ -20,5 +20,18 @@ module.exports = (sequelize, DataTypes) => {
       as: 'wikis'
     });
   };  
+
+  Users.prototype.isStandard = function() {
+    return this.role === "standard";
+  };
+
+  Users.prototype.isAdmin = function() {
+    return this.role === "admin";
+  };
+
+  Users.prototype.isPremium = function() {
+    return this.role === "premium";
+  };
+
   return Users;
 };
