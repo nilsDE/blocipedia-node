@@ -11,5 +11,6 @@ module.exports = {
     
     app.use(staticRoutes);
     app.use(usersRoutes);
+    app.use(wikiRoutes);
   }
 };
