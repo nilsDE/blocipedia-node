@@ -24,7 +24,15 @@ module.exports = {
         callback(err);
       });
   },
-
+  getAllPublicWikis(callback) {
+    return Wiki.findAll({ where: { private: false } })
+      .then(wikis => {
+        callback(null, wikis);
+      })
+      .catch(err => {
+        callback(err);
+      });
+  },
   addWiki(newWiki, callback) {
     return Wiki.create({
         title: newWiki.title,
@@ -40,19 +48,13 @@ module.exports = {
       });
   },
 
-  getWiki(id, userId, callback) {
+  getWiki(id, callback) {
     return Wiki.findByPk(id)
-      .then((wiki) => {
-        if(wiki.private === false) {
+      .then((wiki) => {   
           callback(null, wiki);
-        } else if(wiki.private === true && wiki.userId === userId) {
-          callback(null, wiki);
-        } else {
-          req.flash("notice", "You are not authorized to do that....");
-        }
       })
       .catch(err => {
-        callback(err);
+        callback(401);
       });
   },
 
