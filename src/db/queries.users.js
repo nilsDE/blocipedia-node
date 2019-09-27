@@ -45,7 +45,7 @@ module.exports = {
         if (!user) {
           return callback(404);
         } else {
-          return user.updateAttributes({ role: "premium" });
+          return user.update({ role: "premium" });
         }
       })
       .catch(err => {
@@ -58,7 +58,7 @@ module.exports = {
         if (!user) {
           return callback(404);
         } else {
-          return user.updateAttributes({ role: "standard" });
+          return user.update({ role: "standard" });
         }
       })
       .catch(err => {
