@@ -28,7 +28,6 @@ module.exports = {
         callback(err);
       });
   },
-
   getUser(id, callback) {
     let result = {};
     User.findById(id).then(user => {
@@ -38,5 +37,32 @@ module.exports = {
         result["user"] = user;
       }
     });
+  },
+  upgradeUser(id, callback) {
+    return User.findByPk(id)
+      .then(user => {
+        console.log(user)
+        if (!user) {
+          return callback(404);
+        } else {
+          return user.updateAttributes({ role: "premium" });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  downgradeUser(id, callback) {
+    return User.findByPk(id)
+      .then(user => {
+        if (!user) {
+          return callback(404);
+        } else {
+          return user.updateAttributes({ role: "standard" });
+        }
+      })
+      .catch(err => {
+        callback(err);
+      });
   }
 };

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+
+    <main class="container">
+      <% include ../static/partials/messages.ejs %>
+
+      <h1>Do you want to upgrade your account?</h1>
+      <a href="/users/account" class="btn btn-outline-info btn-sm"
+        ><i class="fas fa-arrow-left"></i>Go back to profile</a
+      >
+
+      <p>
+        For only $15/month, you will be able to create private Wikis!
+      </p>
+
+      <div>
+        <small>Pay with your credit card 4242 4242 4242 4242.</small>
+      </div>
+
+      <form
+        action="/users/<%= currentUser.id %>/upgrade"
+        method="POST"
+        style="margin-top:15px"
+      >
+        <script
+          src="https://checkout.stripe.com/checkout.js"
+          class="stripe-button"
+          data-key='pk_test_79k4Q1a8dqgjhgkhkiW9Xmp6006WTty1MU'
+          data-amount="1500"
+          data-name="Demo Site"
+          data-description="Example charge"
+          data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+          data-locale="auto"
+        ></script>
+      </form>
+    </main>
+
+    <% include ../static/partials/baseScripts.ejs %>
+  </body>
+</html>

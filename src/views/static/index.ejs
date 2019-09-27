@@ -1,54 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <% include ./partials/head.ejs %>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <% include ./partials/navbar.ejs %>
 
     <main class="container">
       <% include ./partials/messages.ejs %>
-        <!-- Jumbotron Header -->
-        <header class="jumbotron my-4 text-center">
-          <h1 class="display-3">Welcome to Blocipedia!</h1>
-          <p class="lead">An application for users to create, collaborate, and share wikis.</p>
-          <% if(!currentUser) { %>
-            <a href="/users/signup" class="btn btn-primary btn-lg">Sign Up</a>
-            <a href="/users/signin" class="btn btn-primary btn-lg">Sign In</a>
-          <% } else { %>
-            <br>
-            <a href='/wikis' class="btn btn-success btn-lg btn-block">Take me to the wikis!</a>
-          <% } %>
-        </header>
-    
-        <!-- Page Features -->
-        <section class="row text-center">
-    
-          <section class="col-lg-4">
-            <h4 class="card-title">Create</h4>
-            <p class="card-text">Create wikis about subjects that are important to you.</p>
-          </section>
-    
-          <section class="col-lg-4">
-            <h4 class="card-title">Collaborate</h4>
-            <p class="card-text">Work together with others and make it a joint experience!</p>
-          </section>
-    
-          <section class="col-lg-4">
-            <h4 class="card-title">Share</h4>
-            <p class="card-text">Share your knowledge with the world!</p>
-          </section>
-    
+      <!-- Jumbotron Header -->
+      <header class="jumbotron my-4 text-center">
+        <h1 class="display-3">Welcome to Blocipedia!</h1>
+        <p class="lead">
+          An application for users to create, collaborate, and share wikis.
+        </p>
+        <% if(!currentUser) { %>
+        <a href="/users/signup" class="btn btn-primary btn-lg">Sign Up</a>
+        <a href="/users/signin" class="btn btn-primary btn-lg">Sign In</a>
+        <% } else { %>
+        <br />
+        <a href="/wikis" class="btn btn-success btn-lg btn-sm"
+          >Take me to the wikis!</a
+        >
+        <a
+          href="/users/account"
+          class="btn btn-info btn-sm"
+          style="display: inline-block"
+          >My Profile</a
+        >
+        <% if(currentUser.role != "premium") { %>
+        <a
+          href="/users/upgrade"
+          class="btn btn-primary btn-sm"
+          style="display: inline-block"
+          >Upgrade to Premium</a
+        >
+        <% } %> <% } %>
+      </header>
+
+      <!-- Page Features -->
+      <section class="row text-center">
+        <section class="col-lg-4">
+          <h4 class="card-title">Create</h4>
+          <p class="card-text">
+            Create wikis about subjects that are important to you.
+          </p>
         </section>
-        <!-- /.row -->
-    
-      </main>
-      <!-- /.container -->
-    
-      <% include ./partials/baseScripts.ejs %>
-    </body>
-    
-    </html>
+
+        <section class="col-lg-4">
+          <h4 class="card-title">Collaborate</h4>
+          <p class="card-text">
+            Work together with others and make it a joint experience!
+          </p>
+        </section>
+
+        <section class="col-lg-4">
+          <h4 class="card-title">Share</h4>
+          <p class="card-text">Share your knowledge with the world!</p>
+        </section>
+      </section>
+      <!-- /.row -->
+    </main>
+    <!-- /.container -->
+
+    <% include ./partials/baseScripts.ejs %>
+  </body>
+</html>

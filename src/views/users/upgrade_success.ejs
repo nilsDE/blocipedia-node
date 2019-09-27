@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+
+    <main class="container">
+      <% include ../static/partials/messages.ejs %>
+
+      <h1>Account Upgraded</h1>
+      <p>Thank you for upgrading your account! You are now a premium member and you can now create private wikis!</p>
+
+      <a href="/users/account" class="btn btn-outline-info btn-sm"
+        ><i class="fas fa-arrow-left"></i>Go back to profile</a>
+    </main>
+
+    <% include ../static/partials/baseScripts.ejs %>
+  </body>
+</html>

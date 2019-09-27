@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+
+    <main class="container">
+      <% include ../static/partials/messages.ejs %>
+      <br>
+      <br>
+      <br>
+      <h1>Account Settings</h1>
+      <% if(currentUser && currentUser.role === "standard") { %>
+      <p>
+        You are currently a standard user. As a standard user you cannot create private wikis. If you want to create private wikis, please upgrade your account.
+      </p>
+      <a href="/users/upgrade" class="btn btn-success">Upgrade</a>
+      <% } else if (currentUser.role === "premium") { %>
+      <p>
+        You are currently a premium user. If you want to downgrade to a free standard account, please confirm.
+      </p>
+      <form
+        style="display:initial"
+        action="/users/<%= currentUser.id %>/downgrade"
+        method="post"
+      >
+        <button type="submit" class="btn btn-danger">Downgrade Account</button>
+      </form>
+      <br />
+      <small>Private Wikis Features will no longer be available.</small>
+      <% } %>
+      <br />
+      <br />
+      <br />
+      <a href="/" class="btn btn-outline-info btn-sm" style="margin-right: 10px"
+        >Go back to Home</a
+      >
+      <a href="/wikis" class="btn btn-outline-info btn-sm"
+        >Go back to Wikis</a
+      >
+    </main>
+    <% include ../static/partials/baseScripts.ejs %>
+  </body>
+</html>
