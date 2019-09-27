@@ -3,7 +3,7 @@ const Authorizer = require('../policies/wiki');
 
 module.exports = {
   index(req, res, next) {
-    wikiQueries.getAllWikis((err, wikis) => {
+    wikiQueries.getAllWikis(req.user.id, (err, wikis) => {
       if (err) {
         console.log(err);
         res.redirect(500, "static/index");
@@ -47,7 +47,7 @@ module.exports = {
   },
 
   show(req, res, next) {
-    wikiQueries.getWiki(req.params.id, (err, wiki) => {
+    wikiQueries.getWiki(req.params.id, req.user.id, (err, wiki) => {
       if (err || wiki == null) {
         res.redirect(404, "/");
       } else {

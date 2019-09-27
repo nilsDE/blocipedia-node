@@ -36,6 +36,14 @@
           <small class="text-muted" id="bodyHelp"
             >Body must be 10 or more characters in length.</small
           >
+
+          <% if(currentUser && currentUser.role === "premium") { %>
+          <div class="form-group">
+            <label for="private">Private Wiki</label>
+            <input type="checkbox" class="form-control ml-0" name="private" />
+          </div>
+
+          <% } %>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>

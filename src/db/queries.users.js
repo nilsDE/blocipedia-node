@@ -1,4 +1,5 @@
 const User = require("./models").Users;
+const Wiki = require("./models").Wiki;
 const bcrypt = require("bcryptjs");
 const sgMail = require("@sendgrid/mail");
 
@@ -64,5 +65,15 @@ module.exports = {
       .catch(err => {
         callback(err);
       });
+  },
+  makeWikisPublic(id) {
+    return Wiki.findAll({ where: {
+      userId: id
+    }})
+    .then(wikis => {
+      wikis.forEach(wiki => {
+        wiki.update({ private: false })
+      })
+    })
   }
 };

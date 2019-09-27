@@ -85,6 +85,7 @@ module.exports = {
   },
   downgrade(req, res, next) {
     userQueries.downgradeUser(req.user.dataValues.id);
+    userQueries.makeWikisPublic(req.user.dataValues.id);
     req.flash("notice", "You've successfully downgraded your account!");
     res.redirect("/");
   },

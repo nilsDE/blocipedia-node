@@ -1,9 +1,21 @@
 const Wiki = require("./models").Wiki;
 const Authorizer = require("../policies/application");
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 module.exports = {
-  getAllWikis(callback) {
-    return Wiki.findAll({ where: { private: false } })
+  getAllWikis(id, callback) {
+    // return Wiki.findAll({ where: { private: false } })
+
+    return Wiki.findAll({ where: {
+        [Op.or]: [
+          { private: false },
+          { [Op.and]:[
+            { private: true },
+            { userId: id }
+          ]} 
+        ]
+    }})
 
       .then(wikis => {
         callback(null, wikis);
@@ -28,10 +40,16 @@ module.exports = {
       });
   },
 
-  getWiki(id, callback) {
+  getWiki(id, userId, callback) {
     return Wiki.findByPk(id)
       .then((wiki) => {
-        callback(null, wiki);
+        if(wiki.private === false) {
+          callback(null, wiki);
+        } else if(wiki.private === true && wiki.userId === userId) {
+          callback(null, wiki);
+        } else {
+          req.flash("notice", "You are not authorized to do that....");
+        }
       })
       .catch(err => {
         callback(err);
