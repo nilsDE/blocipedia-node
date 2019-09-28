@@ -22,6 +22,10 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'userId',
       as: 'wikis'
     });
+    Users.hasMany(models.collaborator, {
+      foreignKey: "userId",
+      as: "collaborators"
+    })
   };  
 
   Users.prototype.isStandard = function() {

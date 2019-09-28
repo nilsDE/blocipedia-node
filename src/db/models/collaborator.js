@@ -1,11 +1,24 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var collaborator = sequelize.define('collaborator', {
-    userId: DataTypes.INTEGER,
-    wikiId: DataTypes.INTEGER
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    wikiId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    }
   }, {});
   collaborator.associate = function(models) {
-    // associations can be defined here
+    collaborator.belongsTo(models.Wiki, {
+      foreignKey: "wikiId",
+      onDelete: "CASCADE"
+    });
+    collaborator.belongsTo(models.Users, {
+      foreingnKey: "userId",
+      onDelete: "CASCADE"
+    })
   };
   return collaborator;
 };
