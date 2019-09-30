@@ -1,5 +1,6 @@
 const Wiki = require("./models").Wiki;
-const collaborator = require("./models").collaborator;
+const User = require("./models").User;
+const Collaborator = require("./models").Collaborator;
 const Authorizer = require("../policies/application");
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
@@ -18,8 +19,8 @@ module.exports = {
         ]
     },
     include: [{
-      model: collaborator,
-      as: "collabs",
+      model: Collaborator,
+      as: "collaborators",
       where: { userId: id }
     }]
   })

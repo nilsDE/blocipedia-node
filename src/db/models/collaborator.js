@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var collaborator = sequelize.define('collaborator', {
+  var Collaborator = sequelize.define('Collaborator', {
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false
@@ -10,15 +10,15 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }
   }, {});
-  collaborator.associate = function(models) {
-    collaborator.belongsTo(models.Wiki, {
+  Collaborator.associate = function(models) {
+    Collaborator.belongsTo(models.Wiki, {
       foreignKey: "wikiId",
       onDelete: "CASCADE"
     });
-    collaborator.belongsTo(models.Users, {
+    Collaborator.belongsTo(models.User, {
       foreingnKey: "userId",
       onDelete: "CASCADE"
     })
   };
-  return collaborator;
+  return Collaborator;
 };

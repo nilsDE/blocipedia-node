@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var Users = sequelize.define('Users', {
+  var User = sequelize.define('User', {
     name: DataTypes.STRING,
     email: {
       type: DataTypes.STRING,
@@ -17,28 +17,28 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     }
   }, {});
-  Users.associate = function(models) {
-    Users.hasMany(models.Wiki, {
+  User.associate = function(models) {
+    User.hasMany(models.Wiki, {
       foreignKey: 'userId',
       as: 'wikis'
     });
-    Users.hasMany(models.collaborator, {
+    User.hasMany(models.Collaborator, {
       foreignKey: "userId",
       as: "collaborators"
     })
   };  
 
-  Users.prototype.isStandard = function() {
+  User.prototype.isStandard = function() {
     return this.role === "standard";
   };
 
-  Users.prototype.isAdmin = function() {
+  User.prototype.isAdmin = function() {
     return this.role === "admin";
   };
 
-  Users.prototype.isPremium = function() {
+  User.prototype.isPremium = function() {
     return this.role === "premium";
   };
 
-  return Users;
+  return User;
 };
