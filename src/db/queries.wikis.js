@@ -7,21 +7,25 @@ const Op = Sequelize.Op;
 
 module.exports = {
   getAllWikis(id, callback) {
-    // return Wiki.findAll({ where: { private: false } })
-
-    return Wiki.findAll({ where: {
+    return Wiki.findAll({ 
+      where: {
         [Op.or]: [
           { private: false },
           { [Op.and]:[
             { private: true },
             { userId: id }
-          ]} 
+          ]},
+          { [Op.and]: [
+            { private: true },
+            { '$collaborators.userId$': id }
+          ]}
         ]
     },
     include: [{
       model: Collaborator,
       as: "collaborators",
-      where: { userId: id }
+      where: { userId: id },
+      required: false
     }]
   })
 
