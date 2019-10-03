@@ -18,9 +18,18 @@
         <hr>
         <h4> Add a New Collaborator</h4>
         <% if(currentUser && (currentUser.role === "premium" || currentUser.role === "admin")) { %>
-        <form style="width:25%" action="/wikis/<%= wiki.id %>/collaborators/create" method="post">
+        <form id="addCollab" style="width:50%" action="/wikis/<%= wiki.id %>/collabs/create" method="post">
             <div class="input-group">
-                <input type="text" class="form-control" name="collaborator" placeholder="Enter username">
+                <select 
+                    form="addCollab"
+                    class="form-control" 
+                    name="collaborator" 
+                >
+                 
+                    <% user.forEach(u => { %>
+                        <option value="<%= u.dataValues.email %>"><%= u.dataValues.email %></option>
+                    <% }) %>
+                </select>
                 <button type="submit" class="btn btn-secondary">Add</button>
             </div>
         </form>
@@ -36,9 +45,9 @@
                     <%= collaborator.User.name %>
                 </p>
                 <% if(currentUser && (currentUser.role === "premium" || currentUser.role === "admin")) { %>
-                <form action="/wikis/<%= collaborator.wikiId %>/collaborators/delete" method="post">
+                <form action="/wikis/<%= collaborator.wikiId %>/collabs/delete" method="post">
                     <button type="submit" class="btn btn-danger">Delete</button>
-                    <input type="hidden" value="<%= collaborator.User.id %>" class="form-control" name="collaborator">
+                    <input type="hidden" value="<%= collaborator.id %>" class="form-control" name="collaborator">
                 </form>
                 <% } %>
             </li>
